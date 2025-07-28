@@ -1,0 +1,1 @@
+Generate a single tab-separated list with a header row for the top 50 RBs based on current ADP. The list MUST contain ONLY the following columns: Player, Team, Age, Role, Overall Risk, Last Injury. Perform a full health analysis for each player to generate the risk rating.
