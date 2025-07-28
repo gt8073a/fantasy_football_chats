@@ -28,7 +28,7 @@ jobs:
 
       # GEMINI.md holds all the context
       # use default model
-      - name: Generate Report Headers
+      - name: Generate Report - Headers
         run: |
           cat prompts/rbs/generate_header.md > rb_health_report.tsv
           echo "Generated report headers"
@@ -37,7 +37,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          ( cat prompts/rbs/system.md | gemini -p batch_1_50.md - ) >> rb_health_report.tsv
+          ( cat prompts/rbs/system.md; echo "---"; cat prompts/rbs/batch_1_50.md ) | gemini - >> rb_health_report.tsv
           echo "Generated report for RBs 1-50."
 
       - name: Generate Report - RBs 51-100
