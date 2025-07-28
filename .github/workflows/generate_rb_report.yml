@@ -28,25 +28,30 @@ jobs:
 
       # GEMINI.md holds all the context
       # use default model
+      - name: Generate Report Headers
+        run: |
+          cat prompts/rbs/generate_header.md > rb_health_report.tsv
+          echo "Generated report headers"
+          
       - name: Generate Report - RBs 1-50
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          ( cd prompts/rbs/ && gemini -p batch_1_50.md - ) > rb_health_report.tsv
+          ( cd prompts/rbs/ && echo "For running backs ranked 1 to 50 based on current ADP " | gemini -p generate_matrix.md - ) >> rb_health_report.tsv
           echo "Generated report for RBs 1-50."
 
       - name: Generate Report - RBs 51-100
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          ( cd prompts/rbs/ && gemini -p batch_51_100.md - ) > rb_health_report.tsv
+          ( cd prompts/rbs/ && echo "For running backs ranked 51 to 100 based on current ADP " | gemini -p generate_matrix.md - ) >> rb_health_report.tsv
           echo "Appended report for RBs 51-100."
 
       - name: Generate Report - RBs 101-150
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          ( cd prompts/rbs/ && gemini -p batch_101_150.md - ) > rb_health_report.tsv
+          ( cd prompts/rbs/ && echo "For running backs ranked 101 to 150 based on current ADP " | gemini -p generate_matrix.md - ) >> rb_health_report.tsv
           echo "Appended report for RBs 101-150."
 
       - name: Update GitHub Gist
