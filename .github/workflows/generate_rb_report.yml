@@ -1,0 +1,57 @@
+name: Generate Daily RB Health Report
+
+on:
+  schedule:
+    - cron: '0 10 * * *' # Runs every day at 10:00 UTC
+  push:
+    branches:
+      - main
+    paths:
+      - 'prompts/rbs/system.md' # Only run if this specific file changes
+      - '.github/workflows/**' # Also run if the workflow file itself changes
+  workflow_dispatch: # Lets you run it manually
+
+jobs:
+  build-and-update-gist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Gemini CLI Globally
+        run: npm install -g @google/gemini-cli
+
+      - name: Generate Report - RBs 1-50
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          (cat prompts/rbs/system.md; cat prompts/rbs/batch_1_50.md) | gemini -m gemini-1.5-pro-latest -t 0.2 --no-stream - > rb_health_report.tsv
+          echo "Generated report for RBs 1-50."
+
+      - name: Generate Report - RBs 51-100
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          (cat prompts/rbs/system.md; cat prompts/rbs/batch_51_100.md) | gemini -m gemini-1.5-pro-latest -t 0.2 --no-stream - >> rb_health_report.tsv
+          echo "Appended report for RBs 51-100."
+
+      - name: Generate Report - RBs 101-150
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          (cat prompts/rbs/system.md; cat prompts/rbs/batch_101_150.md) | gemini -m gemini-1.5-pro-latest -t 0.2 --no-stream - >> rb_health_report.tsv
+          echo "Appended report for RBs 101-150."
+
+      - name: Update GitHub Gist
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_PAT }}
+          gist_id: fa22d4721dc053f0b89425097e9bdbfd
+          file_path: rb_health_report.tsv
+          file_type: text
+
