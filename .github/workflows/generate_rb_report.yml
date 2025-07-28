@@ -48,8 +48,8 @@ jobs:
           echo "Appended report for RBs 101-150."
 
       - name: Update GitHub Gist
-        uses: anmol098/gist-sync-action@v1.0
+        uses: exyte/gist-sync-action@v1
         with:
-          auth: ${{ secrets.GIST_PAT }}
-          gist_url: https://gist.github.com/gt8073a/fa22d4721dc053f0b89425097e9bdbfd
-          file_path: rb_health_report.tsv
+          GH_TOKEN: ${{ secrets.GIST_PAT }}
+          GIST_ID: fa22d4721dc053f0b89425097e9bdbfd 
+          FILE_PATH: rb_health_report.tsv
