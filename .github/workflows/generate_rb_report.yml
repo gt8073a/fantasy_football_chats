@@ -37,21 +37,21 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked 1 to 50 based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini - >> rb_health_report.tsv
+          ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked 1 to 50 based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini >> rb_health_report.tsv
           echo "Generated report for RBs 1-50."
 
       - name: Generate Report - RBs 51-100
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked 51 to 100 based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini - >> rb_health_report.tsv
+          ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked 51 to 100 based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini >> rb_health_report.tsv
           echo "Appended report for RBs 51-100."
 
       - name: Generate Report - RBs 101-150
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked 101 to 150 based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini - >> rb_health_report.tsv
+          ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked 101 to 150 based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini >> rb_health_report.tsv
           echo "Appended report for RBs 101-150."
 
       - name: Update GitHub Gist
