@@ -23,36 +23,26 @@ jobs:
         with:
           node-version: '20'
 
+      # limited free daily usage
       - name: Install Gemini CLI Globally
         run: npm install -g @google/gemini-cli
 
-      # GEMINI.md holds all the context
+      # system.md holds all the context
       # use default model
       - name: Generate Report - Headers
         run: |
           cat prompts/rbs/generate_header.md > rb_health_report.tsv
           echo "Generated report headers"
           
-      - name: Generate Report - RBs 1-50
+      - name: Generate Report
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked 1 to 50 based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini >> rb_health_report.tsv
-          echo "Generated report for RBs 1-50."
-
-      - name: Generate Report - RBs 51-100
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked 51 to 100 based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini >> rb_health_report.tsv
-          echo "Appended report for RBs 51-100."
-
-      - name: Generate Report - RBs 101-150
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked 101 to 150 based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini >> rb_health_report.tsv
-          echo "Appended report for RBs 101-150."
+          for i in 1 51 101; do
+            j=$(( i + 49 ))
+            ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked $i to $j based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini >> rb_health_report.tsv
+            echo "Generated report for RBs $i to $j."
+          done
 
       - name: Update GitHub Gist
         uses: exuanbo/actions-deploy-gist@v1
