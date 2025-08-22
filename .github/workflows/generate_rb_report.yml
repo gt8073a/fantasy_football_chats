@@ -40,8 +40,10 @@ jobs:
         run: |
           for i in 1 51 101; do
             j=$(( i + 49 ))
-            ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked $i to $j based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini >> rb_health_report.tsv
-            echo "Generated report for RBs $i to $j."
+            sleep 2
+            echo "`date` Generating report for RBs $i to $j."
+            ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked $i to $j based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini | grep -v 'Data collection is disabled.' >> rb_health_report.tsv
+            echo "`date` Generated report for RBs $i to $j."
           done
 
       - name: Update GitHub Gist
