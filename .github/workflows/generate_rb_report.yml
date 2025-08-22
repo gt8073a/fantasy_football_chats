@@ -46,6 +46,18 @@ jobs:
             echo "`date` Generated report for RBs $i to $j."
           done
 
+      - name: Validate Report File
+        run: |
+
+           MINIMUM_LINES=121
+           ACTUAL_LINES=$(wc -l < rb_health_report.tsv)
+           echo "File contains $ACTUAL_LINES lines. Required minimum is $MINIMUM_LINES."
+    
+           if [ "$ACTUAL_LINES" -lt "$MINIMUM_LINES" ]; then
+              echo "::error::Validation failed! The generated report is too small. It may be incomplete or corrupted."
+              exit 1
+           fi
+    
       - name: Update GitHub Gist
         uses: exuanbo/actions-deploy-gist@v1
         with:
