@@ -28,8 +28,8 @@ jobs:
         run: npm install -g @google/gemini-cli
 
       # erroring on missing tools
-      - name: Check Gemini Tools
-        run: gemini --version && gemini --help && exit 1
+      # - name: Check Gemini Tools
+      #  run: gemini --version && gemini --help && exit 1
 
       # system.md holds all the context
       # use default model
@@ -46,7 +46,7 @@ jobs:
             j=$(( i + 49 ))
             sleep 2
             echo "`date` Generating report for RBs $i to $j."
-            ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked $i to $j based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini | grep -v 'Data collection is disabled.' >> rb_health_report.tsv
+            ( cat prompts/rbs/system.md; echo "---"; echo; echo; echo "For running backs ranked $i to $j based on current ADP"; cat prompts/rbs/generate_matrix.md  ) | gemini --debug | grep -v 'Data collection is disabled.' >> rb_health_report.tsv
             echo "`date` Generated report for RBs $i to $j."
           done
 
