@@ -83,17 +83,40 @@ The RB model is the most mature and is updated daily.
 
 ---
 
-## How to Use
+---
 
-While the primary output is the daily-generated data file, the core of this project is the `system.md` prompt. This prompt can be used with any tool that can access the Gemini API (such as the official `gemini-cli` or `llm` tools) to perform live, on-demand analysis.
+## How to Use This Project
 
-### Example: Local Ad-Hoc Analysis
+There are three ways to use the Health & Availability Analyzer, depending on your needs.
 
-1.  Set up your local environment with the Gemini API.
-2.  Use a script or command to send the system prompt and a user prompt together:
+### 1. View the Daily Report (For Quick Checks)
+
+The easiest way to get the daily health summary is to view the pre-generated report directly. This is a clean, simple data file with the latest analysis for the top 100 players.
+
+*   **View the Live RB Health Report:** [**Click here to see the latest data**](https://gist.github.com/gt8073a/fa22d4721dc053f0b89425097e9bdbfd)
+
+This is perfect for a quick, at-a-glance overview of the current landscape.
+
+### 2. Use the Interactive GPT (For Deeper Analysis & Chat)
+
+For a more interactive experience, you can use the official Custom GPT. This allows you to ask for detailed "Player Cards," compare players for a trade, or debate the risk ratings with the AI.
+
+*   **Chat with the Analyzer GPT:** [**Fantasy Football RB Injury Risk Analyzer**](https://chat.openai.com/g/g-6886a93bdc50819182c16a3c49049fb9-fantasy-football-rb-injury-risk-analyzer)
+
+This is the recommended way to get deep-dive analysis and answers to specific "why" questions. And you can access it on your phone in found time.
+
+### 3. Run It Yourself (For Power Users & Developers)
+
+For maximum control and customization, you can run the analysis engine locally using the prompts in this repository. This allows you to analyze any list of players, tweak the system logic, or integrate the tool into your own scripts.
+
+**Prerequisites:**
+*   A tool that can access the Gemini API (like the `llm` tool).
+*   Your own Gemini API key.
+
+**Example Command:**
+This command runs a live, detailed analysis for a specific player using the core system prompt.
 
 ```bash
-# Example command using the llm tool
+# Example command for a live, detailed player analysis
 (cat prompts/rbs/system.md; echo "explain Saquon Barkley") | llm -m gemini-1.5-pro-latest -
 ```
-
