@@ -83,8 +83,6 @@ The RB model is the most mature and is updated daily.
 
 ---
 
----
-
 ## How to Use This Project
 
 There are three ways to use the Health & Availability Analyzer, depending on your needs.
