@@ -6,8 +6,6 @@ The goal is to move beyond simple "injury-prone" labels and provide a nuanced, d
 
 ---
 
----
-
 ### A Note on AI-Driven Analysis: Your Analytical Partner
 
 It is crucial to understand the nature of this tool's output. The analysis, particularly the `Overall Risk` rating, is the result of a **qualitative synthesis** performed by a large language model. It is not a deterministic, quantitative prediction.
