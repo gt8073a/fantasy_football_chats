@@ -6,6 +6,29 @@ The goal is to move beyond simple "injury-prone" labels and provide a nuanced, d
 
 ---
 
+---
+
+### A Note on AI-Driven Analysis: Your Analytical Partner
+
+It is crucial to understand the nature of this tool's output. The analysis, particularly the `Overall Risk` rating, is the result of a **qualitative synthesis** performed by a large language model. It is not a deterministic, quantitative prediction.
+
+**This is a feature, not a bug.**
+
+Think of this tool as your personal AI research assistant. Its primary job is to deliver data-driven, nuanced perspectives that you can use to challenge your own assumptions and gain a competitive edge.
+
+**How to Use This Data:**
+
+*   **As Expert-Level Smack Talk:** This is your secret weapon for league chat. The Player Cards provide a concise history of a player's durability and situational risks. It's just enough detail to sound like the smartest manager in the room and make your shallow-minded league-mates second-guess their picks.
+    *   *"The AI flagged that your new RB1 has a High 'ROUGH' risk due to recurring calf strains. Bold move keeping him past week 5."*
+
+*   **As a Sanity Check:** If the AI's rating dramatically differs from the consensus, it's a signal to dig deeper. Did it spot a weak offensive line that everyone else is ignoring?
+
+*   **As a Strategic Tool:** Use the analysis to identify players where your league-mates might be over- or under-valuing risk, creating opportunities for you in drafts and trades.
+
+This tool is designed to be your AI partner, arming you with the data and talking points you need to not only make more informed decisions but to dominate your league's discourse.
+
+---
+
 ## The Core Analytical Framework
 
 At the heart of this system is a proprietary six-factor risk model. While the specific definitions are tuned for each position, the core principles remain the same:

@@ -1,76 +1,43 @@
-# 🏈 RB Injury Risk Analyzer Prompt
+# Running Back (RB) Health & Durability Model
 
-This prompt powers an expert-level **Running Back Injury Risk Analyzer** for fantasy football. It is part of a larger project to evaluate positional injury risk across all offensive skill players (RB, WR, TE, etc.).
+This document provides a detailed breakdown of the analytical framework used in `system.md` to assess injury risk specifically for running backs.
 
-## 🔍 Purpose
-
-Unlike performance or projection-based tools, this analyzer is focused solely on **durability and availability** — helping fantasy managers assess which players are most likely to miss time due to injury, scheme misuse, or situational risk.
-
-### What it Does:
-- Evaluates the **Top 150 RBs** using real-time injury reports and team context.
-- Assigns an **Overall Risk** rating based on a proprietary 6-factor framework (see below).
-- Generates:
-  - Summary injury risk matrices
-  - Individual player breakdowns
-  - Comparative durability analysis
-  - Justified answers to "why" a player has high/low risk
-
-### What it Does *Not* Do:
-- Project fantasy points
-- Suggest draft strategy
-- Rank players by upside or ADP (outside of initial list generation)
-
-## ⚙️ Framework
-
-At the core is the **"Four Oughs" Model**, plus two situational risk factors:
-
-- **TOUGH** – Mentality & external pressure risks (e.g. contract year push)
-- **ROUGH** – Physical & medical durability (e.g. soft tissue, surgeries)
-- **ENOUGH** – Volume spikes and role mismatches
-- **THROWS** – Passing offense, and stack box risk from poor QBs
-- **OFFS** – Hit-at-contact rate from weak offensive lines
-- **DUMB** – Coaching/scheme misuse that invites injury
-
-## 📦 system.md Usage
-
-Put the system prompt into a ChatGPT Custom GPT, or load it via an LLM framework that supports prompt injection and function-calling. All outputs are designed to be scannable, tabular, and analytically useful for in-season or draft prep.
-
-## 🛠️ Matrix Builder Prompts
-
-To optimize speed and ensure freshness, this repo includes **three automated prompts** that pre-generate the full **Top 150 RB Injury Risk Matrix** once per day.
-
-### Purpose
-These prompts exist to:
-- Preload player data into memory for faster user response times
-- Keep injury news and team context up to date
-- Reduce live lookup load for the main analyzer
-- gist location https://gist.githubusercontent.com/gt8073a/fa22d4721dc053f0b89425097e9bdbfd
-
-
-### How It Works
-- The top 150 RBs are divided into three batches (50 players each)
-- Each builder prompt processes one batch
-
-### Output Format
-- The matrix is formatted as **tab-separated values (TSV)** for easy parsing
-- Compatible with spreadsheet tools, dashboards, or markdown tables
-
-### Update Frequency
-- Intended to run **once daily**
-- Can be triggered via:
-  - Manual run
-  - Cron job
-  - GitHub Actions workflow
-
-### Benefits
-- Enables instant lookup and comparisons
-- Keeps the analyzer reactive to breaking injury news
-- Ensures data freshness during critical draft periods
-
-> 🧠 These prompts are utilities that power the main `system.md` prompt. They are not user-facing but play a crucial backend role.
-
+Running backs are the most physically demanding and injury-prone position in fantasy football. Their risk profile is unique, requiring a specialized analysis that weighs both their physical history and their immediate offensive environment. This model is the most mature in the project and serves as the foundation for all other positional analyses.
 
 ---
 
-*Built for precision drafters. Injury-prone rosters lose leagues — this analyzer helps you avoid them.*
+## RB Analytical Framework
 
+The analysis for running backs integrates the four universal "Ough" factors with two critical, RB-specific situational modifiers.
+
+### Universal "Ough" Factors
+
+The analysis begins with the four universal factors defined in the main project README:
+*   **TOUGH (Mentality Risk)**
+*   **ROUGH (Physical Risk)**
+*   **ENOUGH (Volume Risk)**
+*   **DUMB (Coaching & Scheme Risk)**
+
+While these are universal, for RBs, the **ROUGH** and **ENOUGH** factors are often the most heavily weighted due to the direct correlation between physical punishment, career workload, and injury.
+
+### RB-Specific Positional Modifiers
+
+These two situational factors are critical for understanding the context and quality of a running back's touches.
+
+#### OFFS (🚧 Offensive Line Risk)
+This factor measures the risk created by the quality of the offensive line. It is more than just a performance metric; it's a direct contributor to a running back's physical wear and tear.
+*   A **High** risk (poor O-line) forces an RB to absorb contact at or behind the line of scrimmage, break more tackles just to get back to the line, and face more frequent, punishing collisions.
+*   A **Low** risk (strong O-line) provides clean running lanes, allowing the RB to build momentum before contact and reducing the number of high-impact, low-value tackles.
+
+#### THROWS (✈️ Passing Game Risk)
+This factor measures how the team's passing offense affects the defensive alignment a running back faces.
+*   A **High** risk (weak passing game) allows defenses to "stack the box" with eight or more defenders near the line of scrimmage. This creates more traffic, fewer clean running lanes, and results in more physically taxing runs for lower yardage.
+*   A **Low** risk (potent passing game) forces defenses to respect the pass, keeping safeties deep and linebackers in coverage. This results in "lighter" boxes and creates more favorable running situations.
+
+---
+
+## Synthesizing the `Overall Risk`
+
+The final `Overall Risk` rating is not a simple average of the six factors. It is a synthesized assessment where certain factors, particularly `ROUGH` (Physical Risk), carry more weight than others. A player with a significant injury history and a High ROUGH risk will rarely receive a Low Overall Risk rating, regardless of how good their situation is.
+
+The combination of these six factors provides a holistic durability profile for each player, forming the basis of the daily-generated report.
