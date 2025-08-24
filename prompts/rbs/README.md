@@ -41,3 +41,9 @@ This factor measures how the team's passing offense affects the defensive alignm
 The final `Overall Risk` rating is not a simple average of the six factors. It is a synthesized assessment where certain factors, particularly `ROUGH` (Physical Risk), carry more weight than others. A player with a significant injury history and a High ROUGH risk will rarely receive a Low Overall Risk rating, regardless of how good their situation is.
 
 The combination of these six factors provides a holistic durability profile for each player, forming the basis of the daily-generated report.
+
+---
+
+## Caching Overview
+
+see .github/workflows/generate_rb_report.yml
