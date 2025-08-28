@@ -1,0 +1,40 @@
+openapi: 3.1.0
+info:
+  title: Public GitHub Gist Fetcher
+  description: Retrieves the raw content of a specific public Gist file using the GitHub API.
+  version: v1.0.0
+servers:
+  - url: https://api.github.com
+paths:
+  /gists/{gist_id}:
+    get:
+      operationId: getPublicGistContent
+      summary: Get the raw content of a specific public Gist file.
+      parameters:
+        - name: gist_id
+          in: path
+          required: true
+          description: The ID of the public Gist to retrieve.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved Gist content.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  files:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        content:
+                          type: string
+                          description: The raw text content of the Gist file.
+        "404":
+          description: Not Found. The Gist with the specified ID does not exist.
+        "503":
+          description: Service Unavailable. The GitHub API is temporarily down.
+
