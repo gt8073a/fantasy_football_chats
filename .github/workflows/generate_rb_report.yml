@@ -1,8 +1,8 @@
 name: Generate Daily RB Health Report
 
 on:
-  schedule:
-    - cron: '0 10 * * *' # Runs every day at 10:00 UTC
+  # schedule:
+  #  - cron: '0 10 * * *' # Runs every day at 10:00 UTC
   push:
     branches:
       - main
